@@ -1,0 +1,48 @@
+# Arquivos temporários do Visual Studio
+.vs/
+
+# Arquivos binários e de dependência do Visual Studio
+*.dll
+*.pdb
+*.exe
+*.suo
+*.cache
+*.log
+*.zip
+
+# Arquivos gerados automaticamente pelo Visual Studio
+*.user
+*.vspscc
+*_i.c
+*_p.c
+*.ncb
+*.suo
+*.tlb
+*.tlh
+*.bak
+*.cache
+*.ilk
+*.log
+*.lib
+*.sbr
+*.sdf
+*.idb
+*.ipch
+*.pdb
+*.obj
+*.pch
+*.res
+*.tlb
+*.scc
+*.manifest
+*.csproj.user
+Thumbs.db
+*.dbmdl
+
+# Diretórios gerados pelo NuGet
+packages/
+
+# Diretórios específicos do ASP.NET
+[Tt]emp/
+[Oo]bj/
+Bin/
