@@ -3,40 +3,62 @@ using System.Collections.Generic;
 using CadastroNotas.Models;
 
 namespace CadastroNotas.Controllers
-{  // criação da classe AlunoController
+{
+    // criação da classe alunoController
     public class AlunoController
-    {
-        //// criando um campo privado
-        // para armazenar a lista de Objetos Aluno 
-        private List<Aluno> alunos;
+    {   
+        // declarção da variável aluno do Tipo Aluno
+        private Aluno aluno; 
 
-        /// Metodo Construtor AlunoController para
-       // inicializar a lista de Alunos
-        public AlunoController()
+        // método para criar um novo aluno
+        // e adicionar as matetérias Portugues e matemática ao aluno
+
+        public void CriarAluno(string nome, double nota1, double nota2)
         {
-            alunos = new List<Aluno>();
+            aluno = new Aluno(nome);
+            aluno.AdicionarMateria("Português", nota1, nota2);
+            aluno.AdicionarMateria("Matemática", nota1, nota2);
         }
 
-        // Método público para cadastrar um novo Aluno na lista
-        public void CadastrarAluno(string nome, double nota1, double nota2)
+
+           // método que adiciona notas ao aluno 
+           // se o aluno  existir
+        public void AdicionarNotas(double nota1, double nota2)
         {
-            alunos.Add(new Aluno(nome, nota1, nota2));
-        }
-
-          
-        // Método para mostrar os dados no boletim
-
-        public void MostrarBoletim(){
-            Console.WriteLine("=====Boletim=======");
-             // foreach pera percorrer a lista de Alunos
-             // para imprimir as informações do Aluno no boletim
-            foreach (var aluno in alunos)
+            if (aluno == null)
             {
-                Console.WriteLine($"Aluno: {aluno.Nome}");
-                Console.WriteLine($"Nota 1: {aluno.Nota1}");
-                Console.WriteLine($"Nota 2: {aluno.Nota2}");
-                Console.WriteLine($"Média: {aluno.CalcularMedia()}");
-                Console.WriteLine("====================");
+                Console.WriteLine("Por favor, crie um aluno antes de adicionar notas.");
+                return;
+            }
+
+
+             // cchamada do método AdcionarMateria da classe aluno
+             // para adiocionar as matérias e as notas informadas
+
+            aluno.AdicionarMateria("Matéria", nota1, nota2);
+        }
+
+        // Método mostrar Boletim que verifica se o aluno
+        // está cadastrado
+        public void MostrarBoletim()
+        {
+            if (aluno == null)
+            {
+                Console.WriteLine("Nenhum aluno cadastrado.");
+                return;
+            }
+            
+
+            // criação da variável statusMaterias que armazena
+            // e chama o método CalcularStatusMaterias da calsse
+            // aluno e através do foreach percorre a lista 
+            //statusMaterias e retiorna o status se aluno
+            // está ou não cadastrado na matéria
+          
+            var statusMaterias = aluno.CalcularStatusMaterias();
+            foreach (var status in statusMaterias)
+            {
+                Console.WriteLine(status);
             }
         }
     }

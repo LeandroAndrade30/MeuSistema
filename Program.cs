@@ -4,70 +4,84 @@ using CadastroNotas.Views;
 
 namespace CadastroNotas
 {
-    class Program 
+    class Program
     {
         static void Main(string[] args)
-        {  
-            // criada uma instância da classe AlunoController
+        {
+
+             // criada uma instância da classe AlunoController
             // e atribuída essa instância à variável controller
             // que permite que seja utilizado  os métodos 
             // e propriedades da classe AlunoController
             // para manipular os objetos Aluno 
-            var controller = new AlunoController();
 
-            // Loop Wihle que enquanto a codição for verdadeira
-            // o loop é executado solicitando as informações
-            // ao usuário
-
-            while (true)
+            AlunoController controller = new AlunoController();
+            
+            // decçaração da variável Sair como False,
+            // onde enquanto essa condsiçao não for true
+            // o loop é executado
+            bool sair = false;
+            while (!sair)
             {
-                 // Chamada do Método ExibirMenu da View.
-                 // que exeibe o menu ao usuário
+                // calmada ExibirMenu da View.
                 View.ExibirMenu();
                 string opcao = Console.ReadLine();
-                
-                // Utilização do switch case
-                // para que o usuário escolha o opção 
-                // desejanada do menu
 
                 switch (opcao)
                 {
-
-                    // case 1: solicitará para que o usuário 
-                    // informe o Nome do Aluno, Nota1 e Nota2
+                    // case 1: o usuário informará o nome do aluno 
+                    // e nota1 e nota2 
                     case "1":
-                        Console.Write("Nome do aluno: ");
-                        string nome = Console.ReadLine();
-                        Console.Write("Nota 1: ");
-                        double nota1 = double.Parse(Console.ReadLine());
-                        Console.Write("Nota 2: ");
-                        double nota2 = double.Parse(Console.ReadLine());
-                        controller.CadastrarAluno(nome, nota1, nota2);
+                        View.LimparTela();
+                        Console.WriteLine("Digite o nome do aluno:");
+                        string nomeAluno = Console.ReadLine();
+                        Console.WriteLine("Digite as notas para o aluno (Nota1 Nota2):");
+                        // array notas para armazenar as notas, nota1 e nota2 
+                        // informadas ´pelo usuário separadas por um espaço
+                        // utilizando o método .Split(' ')
+                        string[] notas = Console.ReadLine().Split(' ');
+                         
+                       // se a quantidade de notas for diferente de 2
+                       // o sistema vai informar ao usuário para informar
+                       // as duas notas 
+
+                        if (notas.Length != 2)
+                        {
+                            Console.WriteLine("Por favor, insira duas notas separadas por espaço.");
+                            break;
+                        }
+
+                        double nota1, nota2;
+                        
+                        // verifica se as notas informadas pelo usuário
+                        // podem ser convertidas para double se não for
+                        // possivel retorna a mensagem de erro
+
+                        if (!double.TryParse(notas[0], out nota1) || !double.TryParse(notas[1], out nota2))
+                        {
+                            Console.WriteLine("Por favor, insira notas válidas.");
+                            break;
+                        }
+
+                        controller.CriarAluno(nomeAluno, nota1, nota2);
+                        Console.WriteLine("Aluno cadastrado com sucesso!");
                         break;
 
-                       // case 2: Limpará a tela chamando o método
-                       // LimparTela da View e chama 
-                       // o método ExibirBoletim da View
-                       // para exibir as informações do boletim
-                      // a patir da resposta do Controller(AlunoController)
-                      // que contém as informações do Boletim do Aluno
-                      
-                      
+                        // Case 2: O mètodo LimapraTela() é clamado ta View
+                        // e na swquência o método .ExibirBoletim()
+                        // é chamado da view com a respota do controller
+                        // Exibindo o Boltem 
                     case "2":
-
                         View.LimparTela();
                         View.ExibirBoletim(controller);
                         break;
 
-                    // case 3: Se o usuário escolher a opção 3
-                    // sairá do programa
-
+                        // case 3: sai do Programa
                     case "3":
-
-                        Environment.Exit(0);
+                        sair = true;
                         break;
                     default:
-                        Console.WriteLine("Opção inválida!");
+                        Console.WriteLine("Opção inválida. Por favor, escolha uma opção válida.");
                         break;
                 }
 
@@ -78,4 +92,3 @@ namespace CadastroNotas
         }
     }
 }
-
